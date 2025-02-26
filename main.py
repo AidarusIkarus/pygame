@@ -1,13 +1,14 @@
 import pygame
 
-def cross():
+
+def rectangle():
     screen.fill((0, 0, 0))
-    pygame.draw.line(screen, (255, 255, 255), (0, 0), (width, height), 5)
-    pygame.draw.line(screen, (255, 255, 255), (width, 0), (0, height), 5)
+    pygame.draw.rect(screen, (255, 0, 0), (1, 1, width - 1, height - 1))
+
 
 if __name__ == '__main__':
     pygame.init()
-    pygame.display.set_caption('Крест')
+    pygame.display.set_caption('Прямоугольник')
 
     try:
         x, y = map(int, input().split())
@@ -16,7 +17,7 @@ if __name__ == '__main__':
 
     width, height = x, y
     screen = pygame.display.set_mode((width, height))
-    cross()
+    rectangle()
     pygame.display.flip()
 
     while pygame.event.wait().type != pygame.QUIT:
