@@ -3,24 +3,24 @@ import pygame
 
 def chess():
     screen.fill((0, 0, 0))
-    cell = size // num
-    colors = [(255, 255, 255), (0, 0, 0)]
-    for x in range(num):
-        for y in range(num):
-            color = colors[(x + y) % 2]
-            pygame.draw.rect(screen, color, (x * cell, y * cell, cell, cell))
+    colors = [(255, 0, 0), (0, 255, 0), (0, 0, 255)]
+
+    for i in range(1, num + 1):
+        color = colors[(i - 1) % 3]
+        pygame.draw.circle(screen, color, (num * width, num * width), i * width, width)
 
 
 if __name__ == '__main__':
     pygame.init()
-    pygame.display.set_caption('Шахматная клетка')
+    pygame.display.set_caption('Мишень')
 
     try:
-        size, num = map(int, input().split())
+        width, num = map(int, input().split())
     except ValueError:
         raise ValueError('Неправильный формат ввода')
 
-    screen = pygame.display.set_mode((size, size))
+    size = (2 * num * width, 2 * num * width)
+    screen = pygame.display.set_mode(size)
     chess()
     pygame.display.flip()
 
