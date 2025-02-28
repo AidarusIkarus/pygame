@@ -1,45 +1,36 @@
 import pygame
 import os
 
+radius = float(0)
 
-def bricks():
-    x = 150 - width * 0.75
-    y = 150 - width / 4
-    half_width = width / 2
 
-    color_front = pygame.Color('white')
-    color_upper = pygame.Color('white')
-    color_side = pygame.Color('white')
-    hsv = pygame.Color('white').hsva
-
-    color_front.hsva = (hue, hsv[1] + 100, hsv[2] - 25, hsv[3])
-    color_upper.hsva = (hue, hsv[1] + 100, hsv[2], hsv[3])
-    color_side.hsva = (hue, hsv[1] + 100, hsv[2] - 50, hsv[3])
-
-    pygame.draw.polygon(screen, color_front, ((x, y), (x + width, y), (x + width, y + width), (x, y + width)))
-    pygame.draw.polygon(screen, color_upper, (
-        (x + half_width, y - half_width), (x + half_width + width, y - half_width), (x + width, y), (x, y)))
-    pygame.draw.polygon(screen, color_side, (
-        (x + width, y), (x + half_width + width, y - half_width), (x + half_width + width, y + half_width),
-        (x + width, y + width)))
+def circle():
+    global radius
+    screen.fill(pygame.Color('blue'))
+    if boolean:
+        pygame.draw.circle(screen, 'yellow', (x, y), int(radius))
+        radius += 10 * clock.tick() / 1000
 
 
 if __name__ == '__main__':
     pygame.init()
-    pygame.display.set_caption('Куб')
-
-    try:
-        width, hue = map(int, input().split())
-    except ValueError:
-        raise ValueError('Неправильный формат ввода')
-    if width % 4 != 0 or width > 100 or hue < 0 or hue > 360:
-        raise ValueError('Неправильный формат ввода')
-
+    pygame.display.set_caption('Жёлтый круг')
     size = (300, 300)
-    screen = pygame.display.set_mode(size)
-    bricks()
-    pygame.display.flip()
 
-    while pygame.event.wait().type != pygame.QUIT:
-        pass
+    screen = pygame.display.set_mode(size)
+    clock = pygame.time.Clock()
+    running = True
+    boolean = False
+
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                radius = float(0)
+                x, y = event.pos
+                boolean = True
+
+        circle()
+        pygame.display.flip()
     pygame.quit()
