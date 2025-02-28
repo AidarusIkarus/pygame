@@ -1,24 +1,26 @@
 import pygame
+import math
 
 
 def sphere():
-    screen.fill((0, 0, 0))
-    step = 150 // num
-    for i in range(0, num):
-        pygame.draw.ellipse(screen, (255, 255, 255), (i * step, 0, 300 - i * 2 * step, 300), 1)
-        pygame.draw.ellipse(screen, (255, 255, 255), (0, i * step, 300, 300 - i * 2 * step), 1)
+    screen.fill(pygame.Color('yellow'))
+    for x in range(size[0] // num):
+        for y in range(size[1] // num):
+            pygame.draw.polygon(screen, pygame.Color('orange'), (
+                (x * num + num / 2, y * num), (x * num, y * num + num / 2), (x * num + num / 2, y * num + num),
+                (x * num + num, y * num + num / 2)))
 
 
 if __name__ == '__main__':
     pygame.init()
-    pygame.display.set_caption('Сфера')
+    pygame.display.set_caption('Ромбики')
 
     try:
         num = int(input())
     except ValueError:
         raise ValueError('Неправильный формат ввода')
 
-    size = (300, 300)
+    size = (300, 300)  # размер окна
     screen = pygame.display.set_mode(size)
     sphere()
     pygame.display.flip()
