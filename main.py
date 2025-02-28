@@ -1,28 +1,29 @@
 import pygame
-import math
 
 
-def sphere():
-    screen.fill(pygame.Color('yellow'))
-    for x in range(size[0] // num):
-        for y in range(size[1] // num):
-            pygame.draw.polygon(screen, pygame.Color('orange'), (
-                (x * num + num / 2, y * num), (x * num, y * num + num / 2), (x * num + num / 2, y * num + num),
-                (x * num + num, y * num + num / 2)))
+def bricks():
+    white = (255, 255, 255)
+    screen.fill(white)
+
+    for y in range(0, size[1], 17):
+        for x in range(0, size[0], 32):
+            if y % 2 == 0:
+                x -= 15
+            pygame.draw.rect(screen, pygame.Color('red'), (x, y, 30, 15))
 
 
 if __name__ == '__main__':
     pygame.init()
-    pygame.display.set_caption('Ромбики')
+    pygame.display.set_caption('Кирпичи')
 
-    try:
-        num = int(input())
-    except ValueError:
-        raise ValueError('Неправильный формат ввода')
+    # try:
+    #     num = int(input())
+    # except ValueError:
+    #     raise ValueError('Неправильный формат ввода')
 
-    size = (300, 300)  # размер окна
+    size = (300, 200)
     screen = pygame.display.set_mode(size)
-    sphere()
+    bricks()
     pygame.display.flip()
 
     while pygame.event.wait().type != pygame.QUIT:
