@@ -2,33 +2,26 @@ import pygame
 
 if __name__ == '__main__':
     pygame.init()
-    pygame.display.set_caption('Перетаскивание')
-    size = (300, 300)
+    pygame.font.init()
+    pygame.display.set_caption('Я слежу за тобой!')
+    size = (200, 200)
 
     screen = pygame.display.set_mode(size)
     clock = pygame.time.Clock()
     running = True
-    boolean = False
-    x, y = 0, 0
-    prev_x, prev_y, new_x, new_y = 0, 0, 0, 0
+    count = 1
 
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if x < event.pos[0] < x + 100 and y < event.pos[1] < y + 100:
-                    boolean = True
+            if event.type == pygame.ACTIVEEVENT and event.state == pygame.APPACTIVE and event.gain == 0:
+                count += 1
 
-            if event.type == pygame.MOUSEMOTION:
-                if boolean:
-                    new_x, new_y = event.rel
-                    x += new_x
-                    y += new_y
-            if event.type == pygame.MOUSEBUTTONUP:
-                boolean = False
+        out = pygame.font.Font(None, 100).render(str(count), True, 'red')
+        screen.blit(out, (100 - out.get_rect().width / 2, 100 - out.get_rect().height / 2))
+        pygame.display.update()
+        pygame.display.flip()
         screen.fill('black')
 
-        pygame.draw.rect(screen, 'green', (x, y, 100, 100))
-        pygame.display.flip()
     pygame.quit()
